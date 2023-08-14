@@ -6,8 +6,8 @@ const Auth = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleLogin = async (e) => {
-		e.preventDefault();
+	const handleLogin = async (event) => {
+		event.preventDefault();
 
 		setLoading(true);
 		const { error } = await supabase.auth.signInWithPassword({ email, password });

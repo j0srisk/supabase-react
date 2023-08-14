@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
 
+import Avatar from "./Avatar";
+
 const Account = ({ session }) => {
 	const [loading, setLoading] = useState(true);
 	const [username, setUsername] = useState(null);
@@ -35,8 +37,8 @@ const Account = ({ session }) => {
 		getProfile();
 	}, [session]);
 
-	async function updateProfile(e, avatarUrl) {
-		e.preventDefault();
+	async function updateProfile(event, avatarUrl) {
+		event.preventDefault();
 
 		setLoading(true);
 		const { user } = session;
@@ -61,6 +63,13 @@ const Account = ({ session }) => {
 
 	return (
 		<form onSubmit={updateProfile} className="form-widget">
+			<Avatar
+				url={avatar_url}
+				size={150}
+				onUpload={(event, url) => {
+					updateProfile(event, url);
+				}}
+			/>
 			<div>
 				<label htmlFor="email">Email</label>
 				<input id="email" type="text" value={session.user.email} disabled />
